@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sl.example.dao.DetailMapper" >
+  <resultMap id="BaseResultMap" type="com.sl.example.pojo.Detail" >
+    <constructor >
+      <idArg column="detail_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="qsn_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="option_num" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="order_num" jdbcType="SMALLINT" javaType="java.lang.Short" />
+      <arg column="type" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="rmk1" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="rmk2" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="rmk3" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="rmk4" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="rmk5" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    detail_id, qsn_id, option_num, order_num, type, rmk1, rmk2, rmk3, rmk4, rmk5
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_gr_qsn_detail
+    where detail_id = #{detailId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByQsnId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from t_gr_qsn_detail
+    where qsn_id = #{qsnId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectOptionsByQsnId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from t_gr_qsn_detail
+    where qsn_id = #{qsnId,jdbcType=VARCHAR}
+    ORDER BY order_num
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_gr_qsn_detail
+    where detail_id = #{detailId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByQsnId" parameterType="java.lang.String" >
+    delete from t_gr_qsn_detail
+    where qsn_id = #{qsnId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sl.example.pojo.Detail" >
+    insert into t_gr_qsn_detail (detail_id, qsn_id, option_num, 
+      order_num, type, rmk1, 
+      rmk2, rmk3, rmk4, rmk5
+      )
+    values (#{detailId,jdbcType=VARCHAR}, #{qsnId,jdbcType=VARCHAR}, #{optionNum,jdbcType=VARCHAR}, 
+      #{orderNum,jdbcType=SMALLINT}, #{type,jdbcType=CHAR}, #{rmk1,jdbcType=VARCHAR}, 
+      #{rmk2,jdbcType=VARCHAR}, #{rmk3,jdbcType=VARCHAR}, #{rmk4,jdbcType=VARCHAR}, #{rmk5,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sl.example.pojo.Detail" >
+    insert into t_gr_qsn_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="detailId != null" >
+        detail_id,
+      </if>
+      <if test="qsnId != null" >
+        qsn_id,
+      </if>
+      <if test="optionNum != null" >
+        option_num,
+      </if>
+      <if test="orderNum != null" >
+        order_num,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="rmk1 != null" >
+        rmk1,
+      </if>
+      <if test="rmk2 != null" >
+        rmk2,
+      </if>
+      <if test="rmk3 != null" >
+        rmk3,
+      </if>
+      <if test="rmk4 != null" >
+        rmk4,
+      </if>
+      <if test="rmk5 != null" >
+        rmk5,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="detailId != null" >
+        #{detailId,jdbcType=VARCHAR},
+      </if>
+      <if test="qsnId != null" >
+        #{qsnId,jdbcType=VARCHAR},
+      </if>
+      <if test="optionNum != null" >
+        #{optionNum,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNum != null" >
+        #{orderNum,jdbcType=SMALLINT},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=CHAR},
+      </if>
+      <if test="rmk1 != null" >
+        #{rmk1,jdbcType=VARCHAR},
+      </if>
+      <if test="rmk2 != null" >
+        #{rmk2,jdbcType=VARCHAR},
+      </if>
+      <if test="rmk3 != null" >
+        #{rmk3,jdbcType=VARCHAR},
+      </if>
+      <if test="rmk4 != null" >
+        #{rmk4,jdbcType=VARCHAR},
+      </if>
+      <if test="rmk5 != null" >
+        #{rmk5,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sl.example.pojo.Detail" >
+    update t_gr_qsn_detail
+    <set >
+      <if test="qsnId != null" >
+        qsn_id = #{qsnId,jdbcType=VARCHAR},
+      </if>
+      <if test="optionNum != null" >
+        option_num = #{optionNum,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNum != null" >
+        order_num = #{orderNum,jdbcType=SMALLINT},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=CHAR},
+      </if>
+      <if test="rmk1 != null" >
+        rmk1 = #{rmk1,jdbcType=VARCHAR},
+      </if>
+      <if test="rmk2 != null" >
+        rmk2 = #{rmk2,jdbcType=VARCHAR},
+      </if>
+      <if test="rmk3 != null" >
+        rmk3 = #{rmk3,jdbcType=VARCHAR},
+      </if>
+      <if test="rmk4 != null" >
+        rmk4 = #{rmk4,jdbcType=VARCHAR},
+      </if>
+      <if test="rmk5 != null" >
+        rmk5 = #{rmk5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where detail_id = #{detailId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sl.example.pojo.Detail" >
+    update t_gr_qsn_detail
+    set qsn_id = #{qsnId,jdbcType=VARCHAR},
+      option_num = #{optionNum,jdbcType=VARCHAR},
+      order_num = #{orderNum,jdbcType=SMALLINT},
+      type = #{type,jdbcType=CHAR},
+      rmk1 = #{rmk1,jdbcType=VARCHAR},
+      rmk2 = #{rmk2,jdbcType=VARCHAR},
+      rmk3 = #{rmk3,jdbcType=VARCHAR},
+      rmk4 = #{rmk4,jdbcType=VARCHAR},
+      rmk5 = #{rmk5,jdbcType=VARCHAR}
+    where detail_id = #{detailId,jdbcType=VARCHAR}
+  </update>
+</mapper>

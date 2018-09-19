@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sl.example.dao.ModelMapper" >
+  <resultMap id="BaseResultMap" type="com.sl.example.pojo.Model" >
+    <constructor >
+      <idArg column="model_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="time" jdbcType="DATE" javaType="java.util.Date" />
+      <arg column="create_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="rmk2" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="rmk3" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="rmk4" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="rmk5" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    model_id, name, time, create_name, rmk2, rmk3, rmk4, rmk5
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_gr_qsn_model
+    where model_id = #{modelId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAllModel" resultMap="BaseResultMap" resultType="java.util.List">
+    select
+    <include refid="Base_Column_List" />
+    from t_gr_qsn_model
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_gr_qsn_model
+    where model_id = #{modelId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByIds" parameterType="java.util.Arrays">
+    delete from t_gr_qsn_model
+    where model_id in
+    <foreach collection="array" index="index" item="item" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </delete>
+  <insert id="insert" parameterType="com.sl.example.pojo.Model" >
+    insert into t_gr_qsn_model (model_id, name, time, 
+      create_name, rmk2, rmk3, 
+      rmk4, rmk5)
+    values (#{modelId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{time,jdbcType=DATE}, 
+      #{createName,jdbcType=VARCHAR}, #{rmk2,jdbcType=VARCHAR}, #{rmk3,jdbcType=VARCHAR}, 
+      #{rmk4,jdbcType=VARCHAR}, #{rmk5,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sl.example.pojo.Model" >
+    insert into t_gr_qsn_model
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="modelId != null" >
+        model_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+      <if test="createName != null" >
+        create_name,
+      </if>
+      <if test="rmk2 != null" >
+        rmk2,
+      </if>
+      <if test="rmk3 != null" >
+        rmk3,
+      </if>
+      <if test="rmk4 != null" >
+        rmk4,
+      </if>
+      <if test="rmk5 != null" >
+        rmk5,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="modelId != null" >
+        #{modelId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=DATE},
+      </if>
+      <if test="createName != null" >
+        #{createName,jdbcType=VARCHAR},
+      </if>
+      <if test="rmk2 != null" >
+        #{rmk2,jdbcType=VARCHAR},
+      </if>
+      <if test="rmk3 != null" >
+        #{rmk3,jdbcType=VARCHAR},
+      </if>
+      <if test="rmk4 != null" >
+        #{rmk4,jdbcType=VARCHAR},
+      </if>
+      <if test="rmk5 != null" >
+        #{rmk5,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sl.example.pojo.Model" >
+    update t_gr_qsn_model
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        time = #{time,jdbcType=DATE},
+      </if>
+      <if test="createName != null" >
+        create_name = #{createName,jdbcType=VARCHAR},
+      </if>
+      <if test="rmk2 != null" >
+        rmk2 = #{rmk2,jdbcType=VARCHAR},
+      </if>
+      <if test="rmk3 != null" >
+        rmk3 = #{rmk3,jdbcType=VARCHAR},
+      </if>
+      <if test="rmk4 != null" >
+        rmk4 = #{rmk4,jdbcType=VARCHAR},
+      </if>
+      <if test="rmk5 != null" >
+        rmk5 = #{rmk5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where model_id = #{modelId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sl.example.pojo.Model" >
+    update t_gr_qsn_model
+    set name = #{name,jdbcType=VARCHAR},
+      time = #{time,jdbcType=DATE},
+      create_name = #{createName,jdbcType=VARCHAR},
+      rmk2 = #{rmk2,jdbcType=VARCHAR},
+      rmk3 = #{rmk3,jdbcType=VARCHAR},
+      rmk4 = #{rmk4,jdbcType=VARCHAR},
+      rmk5 = #{rmk5,jdbcType=VARCHAR}
+    where model_id = #{modelId,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sl.example.dao.QsnMapper" >
+  <resultMap id="BaseResultMap" type="com.sl.example.pojo.Qsn" >
+    <constructor >
+      <idArg column="qsn_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="model_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="model_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="order_num" jdbcType="SMALLINT" javaType="java.lang.Short" />
+      <arg column="content" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="qsn_type" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="flight_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="rmk1" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="rmk2" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="rmk3" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="rmk4" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="rmk5" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    qsn_id, model_id, model_name, order_num, content, qsn_type, flight_id, rmk1, rmk2, 
+    rmk3, rmk4, rmk5
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_gr_qsn
+    where qsn_id = #{qsnId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByContent" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from t_gr_qsn
+    where content = #{content,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByOrderNum" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_gr_qsn
+    where order_num = #{orderNum,jdbcType=VARCHAR}
+    and model_id=#{modelId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectMaxOrderNum" resultType="java.lang.Short" parameterType="java.lang.String" >
+    select MAX(order_num)
+    from t_gr_qsn
+    where model_id = #{modelId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectQsnList" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from t_gr_qsn
+    where model_id = #{modelId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_gr_qsn
+    where qsn_id = #{qsnId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByModelId" parameterType="java.lang.String" >
+    delete from t_gr_qsn
+    where model_id = #{modelId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sl.example.pojo.Qsn" >
+    insert into t_gr_qsn (qsn_id, model_id, model_name, 
+      order_num, content, qsn_type, 
+      flight_id, rmk1, rmk2, 
+      rmk3, rmk4, rmk5)
+    values (#{qsnId,jdbcType=VARCHAR}, #{modelId,jdbcType=VARCHAR}, #{modelName,jdbcType=VARCHAR}, 
+      #{orderNum,jdbcType=SMALLINT}, #{content,jdbcType=VARCHAR}, #{qsnType,jdbcType=VARCHAR}, 
+      #{flightId,jdbcType=VARCHAR}, #{rmk1,jdbcType=VARCHAR}, #{rmk2,jdbcType=VARCHAR}, 
+      #{rmk3,jdbcType=VARCHAR}, #{rmk4,jdbcType=VARCHAR}, #{rmk5,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sl.example.pojo.Qsn" >
+    insert into t_gr_qsn
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="qsnId != null" >
+        qsn_id,
+      </if>
+      <if test="modelId != null" >
+        model_id,
+      </if>
+      <if test="modelName != null" >
+        model_name,
+      </if>
+      <if test="orderNum != null" >
+        order_num,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="qsnType != null" >
+        qsn_type,
+      </if>
+      <if test="flightId != null" >
+        flight_id,
+      </if>
+      <if test="rmk1 != null" >
+        rmk1,
+      </if>
+      <if test="rmk2 != null" >
+        rmk2,
+      </if>
+      <if test="rmk3 != null" >
+        rmk3,
+      </if>
+      <if test="rmk4 != null" >
+        rmk4,
+      </if>
+      <if test="rmk5 != null" >
+        rmk5,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="qsnId != null" >
+        #{qsnId,jdbcType=VARCHAR},
+      </if>
+      <if test="modelId != null" >
+        #{modelId,jdbcType=VARCHAR},
+      </if>
+      <if test="modelName != null" >
+        #{modelName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNum != null" >
+        #{orderNum,jdbcType=SMALLINT},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="qsnType != null" >
+        #{qsnType,jdbcType=VARCHAR},
+      </if>
+      <if test="flightId != null" >
+        #{flightId,jdbcType=VARCHAR},
+      </if>
+      <if test="rmk1 != null" >
+        #{rmk1,jdbcType=VARCHAR},
+      </if>
+      <if test="rmk2 != null" >
+        #{rmk2,jdbcType=VARCHAR},
+      </if>
+      <if test="rmk3 != null" >
+        #{rmk3,jdbcType=VARCHAR},
+      </if>
+      <if test="rmk4 != null" >
+        #{rmk4,jdbcType=VARCHAR},
+      </if>
+      <if test="rmk5 != null" >
+        #{rmk5,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sl.example.pojo.Qsn" >
+    update t_gr_qsn
+    <set >
+      <if test="modelId != null" >
+        model_id = #{modelId,jdbcType=VARCHAR},
+      </if>
+      <if test="modelName != null" >
+        model_name = #{modelName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNum != null" >
+        order_num = #{orderNum,jdbcType=SMALLINT},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="qsnType != null" >
+        qsn_type = #{qsnType,jdbcType=VARCHAR},
+      </if>
+      <if test="flightId != null" >
+        flight_id = #{flightId,jdbcType=VARCHAR},
+      </if>
+      <if test="rmk1 != null" >
+        rmk1 = #{rmk1,jdbcType=VARCHAR},
+      </if>
+      <if test="rmk2 != null" >
+        rmk2 = #{rmk2,jdbcType=VARCHAR},
+      </if>
+      <if test="rmk3 != null" >
+        rmk3 = #{rmk3,jdbcType=VARCHAR},
+      </if>
+      <if test="rmk4 != null" >
+        rmk4 = #{rmk4,jdbcType=VARCHAR},
+      </if>
+      <if test="rmk5 != null" >
+        rmk5 = #{rmk5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where qsn_id = #{qsnId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sl.example.pojo.Qsn" >
+    update t_gr_qsn
+    set model_id = #{modelId,jdbcType=VARCHAR},
+      model_name = #{modelName,jdbcType=VARCHAR},
+      order_num = #{orderNum,jdbcType=SMALLINT},
+      content = #{content,jdbcType=VARCHAR},
+      qsn_type = #{qsnType,jdbcType=VARCHAR},
+      flight_id = #{flightId,jdbcType=VARCHAR},
+      rmk1 = #{rmk1,jdbcType=VARCHAR},
+      rmk2 = #{rmk2,jdbcType=VARCHAR},
+      rmk3 = #{rmk3,jdbcType=VARCHAR},
+      rmk4 = #{rmk4,jdbcType=VARCHAR},
+      rmk5 = #{rmk5,jdbcType=VARCHAR}
+    where qsn_id = #{qsnId,jdbcType=VARCHAR}
+  </update>
+</mapper>
